@@ -18,12 +18,15 @@ struct Todo: Codable, Equatable {
     
     mutating func update(isDone: Bool, detail: String, isToday: Bool) {
         // TODO: update 로직 추가
-        
+        self.isDone = isDone
+        self.detail = detail
+        self.isToday = isToday
     }
     
+    // Equatable protocol을 따름으로써 == 연산자 정의 가능
     static func == (lhs: Self, rhs: Self) -> Bool {
-        // TODO: 동등 조건 추가
-        return true
+        // [X] TODO: 동등 조건 추가
+        return lhs.id == rhs.id
     }
 }
 
