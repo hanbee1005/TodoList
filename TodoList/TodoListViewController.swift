@@ -18,7 +18,7 @@ class TodoListViewController: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     
     
-    // [X] TODO: TodoViewModel 만들기
+    // [x] TODO: TodoViewModel 만들기
     let todoListViewModel = TodoViewModel()
     
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class TodoListViewController: UIViewController {
         // TODO: 키보드 디텍션
         
         
-        // [X] TODO: 데이터 불러오기 (디스크에 있는 정보 가지고 오기)
+        // [x] TODO: 데이터 불러오기 (디스크에 있는 정보 가지고 오기)
         todoListViewModel.loadTasks()
     }
     
@@ -55,12 +55,12 @@ extension TodoListViewController {
 
 extension TodoListViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // [X] TODO: 섹션 몇개
+        // [x] TODO: 섹션 몇개
         return todoListViewModel.numOfSection
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // [X] TODO: 섹션별 아이템 몇개
+        // [x] TODO: 섹션별 아이템 몇개
         if section == 0 {
             return todoListViewModel.todayTodos.count
         } else {
@@ -83,8 +83,8 @@ extension TodoListViewController: UICollectionViewDataSource {
         
         cell.updateUI(todo: todo)
         
-        // [X] TODO: todo 커스텀 셀
-        // [X] TODO: todo 를 이용해서 updateUI
+        // [x] TODO: todo 커스텀 셀
+        // [x] TODO: todo 를 이용해서 updateUI
         // [ ] TODO: doneButtonHandler 작성
         // [ ] TODO: deleteButtonHandler 작성
         return cell
@@ -111,7 +111,7 @@ extension TodoListViewController: UICollectionViewDataSource {
 
 extension TodoListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // TODO: 사이즈 계산하기
+        // [x] TODO: 사이즈 계산하기
         let width = collectionView.bounds.width
         let height: CGFloat = 50
         return CGSize(width: width, height: height)
@@ -141,7 +141,7 @@ class TodoListCell: UICollectionViewCell {
     }
     
     func updateUI(todo: Todo) {
-        // TODO: 셀 업데이트 하기
+        // [x] TODO: 셀 업데이트 하기
         checkButton.isSelected = todo.isDone
         descriptionLabel.text = todo.detail
         descriptionLabel.alpha = todo.isDone ? 0.2 : 1
@@ -158,18 +158,26 @@ class TodoListCell: UICollectionViewCell {
     }
     
     func reset() {
-        // TODO: reset로직 구현
-        
+        // [x] TODO: reset로직 구현
+        descriptionLabel.alpha = 1
+        deleteButton.isHidden = true
+        showStrikeThrough(false)
     }
     
     @IBAction func checkButtonTapped(_ sender: Any) {
-        // TODO: checkButton 처리
+        // [x] TODO: checkButton 처리
+        checkButton.isSelected = !checkButton.isSelected
+        let isDone = checkButton.isSelected
+        descriptionLabel.alpha = isDone ? 0.2 : 1
+        deleteButton.isHidden = !isDone
+        showStrikeThrough(isDone)
         
-
+        // 실제 데이터 업데이트 처리
+        doneButtonTapHandler?(isDone)
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
-        // TODO: deleteButton 처리 
+        // [x] TODO: deleteButton 처리 
         deleteButtonTapHandler?()
     }
 }
