@@ -10,6 +10,7 @@ import UIKit
 
 
 // TODO: Codable과 Equatable 추가
+// Codable을 사용하면서 json을 바로 스위프트가 알아 들을 수 있는 struct 형태로 전환 가능 (key가 같은 값을 기준)
 struct Todo: Codable, Equatable {
     let id: Int
     var isDone: Bool
@@ -73,6 +74,7 @@ class TodoManager {
     }
     
     func saveTodo() {
+        // json type [String: Any] 타입의 딕셔너리 같은 형태
         Storage.store(todos, to: .documents, as: "todos.json")
     }
     
